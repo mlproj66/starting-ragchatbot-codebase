@@ -31,6 +31,43 @@ ANTHROPIC_API_KEY=your_anthropic_api_key_here
 
 - Use uv to run python files
 
+## Frontend Quality Tools
+
+### Code Quality Commands
+```bash
+# Install frontend dependencies (run once)
+npm install
+
+# Check all code quality (formatting + linting)
+npm run quality-check
+
+# Auto-fix all quality issues
+npm run quality-fix
+
+# Format code with Prettier
+npm run format
+
+# Check formatting without changes (CI-friendly)
+npm run format:check
+
+# Lint JavaScript and CSS
+npm run lint
+
+# Auto-fix linting issues
+npm run lint:fix
+```
+
+### Development Workflow
+1. Make frontend changes to files in `frontend/`
+2. Run `npm run quality-fix` to auto-format and fix issues
+3. Run `npm run quality-check` to verify quality standards
+4. Commit changes
+
+### Quality Tools Configured
+- **Prettier**: Auto-formatting for HTML, CSS, JavaScript
+- **ESLint**: JavaScript linting and error detection
+- **Stylelint**: CSS linting and consistency checking
+
 ## Architecture Overview
 
 This is a **tool-based RAG system** where Claude can intelligently search course materials using function calling rather than simple context injection.

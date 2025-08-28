@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(./run.sh)"
+      "Bash(./run.sh)",
+      "Bash(npx prettier:*)",
+      "Bash(npx stylelint:*)"
     ],
     "deny": [],
     "ask": []

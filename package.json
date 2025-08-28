@@ -1,0 +1,38 @@
+{
+  "name": "course-materials-frontend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Frontend code quality tools for Course Materials RAG System",
+  "scripts": {
+    "format": "prettier --write \"frontend/**/*.{js,css,html}\"",
+    "format:check": "prettier --check \"frontend/**/*.{js,css,html}\"",
+    "lint": "npm run lint:js && npm run lint:css",
+    "lint:js": "eslint \"frontend/**/*.js\"",
+    "lint:css": "stylelint \"frontend/**/*.css\"",
+    "lint:fix": "npm run lint:js -- --fix && npm run lint:css -- --fix",
+    "quality-check": "npm run format:check && npm run lint",
+    "quality-fix": "npm run format && npm run lint:fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "eslint": "^9.15.0",
+    "globals": "^15.12.0",
+    "prettier": "^3.3.3",
+    "stylelint": "^16.10.0",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-prettier": "^5.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "frontend",
+    "quality",
+    "formatting",
+    "linting",
+    "development"
+  ],
+  "author": "Course Materials RAG System",
+  "license": "MIT"
+}
