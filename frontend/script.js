@@ -10,7 +10,8 @@ let chatMessages,
   sendButton,
   totalCourses,
   courseTitles,
-  newChatButton;
+  newChatButton,
+  themeToggle;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,8 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
   totalCourses = document.getElementById('totalCourses');
   courseTitles = document.getElementById('courseTitles');
   newChatButton = document.getElementById('newChatButton');
+  themeToggle = document.getElementById('themeToggle');
 
   setupEventListeners();
+  initializeTheme();
   createNewSession();
   loadCourseStats();
 });
@@ -31,16 +34,25 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
   // Chat functionality
   sendButton.addEventListener('click', sendMessage);
-  chatInput.addEventListener('keypress', e => {
+  chatInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
   });
 
   // New chat button
   newChatButton.addEventListener('click', startNewChat);
 
+  // Theme toggle button
+  themeToggle.addEventListener('click', toggleTheme);
+  themeToggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleTheme();
+    }
+  });
+
   // Suggested questions
-  document.querySelectorAll('.suggested-item').forEach(button => {
-    button.addEventListener('click', e => {
+  document.querySelectorAll('.suggested-item').forEach((button) => {
+    button.addEventListener('click', (e) => {
       const question = e.target.getAttribute('data-question');
       chatInput.value = question;
       sendMessage();
@@ -208,7 +220,7 @@ async function loadCourseStats() {
     if (courseTitles) {
       if (data.course_titles && data.course_titles.length > 0) {
         courseTitles.innerHTML = data.course_titles
-          .map(title => `<div class="course-title-item">${title}</div>`)
+          .map((title) => `<div class="course-title-item">${title}</div>`)
           .join('');
       } else {
         courseTitles.innerHTML =
@@ -226,4 +238,34 @@ async function loadCourseStats() {
         '<span class="error">Failed to load courses</span>';
     }
   }
+}
+
+// Theme Management Functions
+function initializeTheme() {
+  // Get saved theme from localStorage, default to 'dark'
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  setTheme(savedTheme);
+}
+
+function toggleTheme() {
+  const currentTheme = document.body.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  setTheme(newTheme);
+}
+
+function setTheme(theme) {
+  // Apply theme to body
+  document.body.setAttribute('data-theme', theme);
+
+  // Save theme preference
+  localStorage.setItem('theme', theme);
+
+  // Update theme toggle button aria-label for accessibility
+  if (themeToggle) {
+    const action =
+      theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+    themeToggle.setAttribute('aria-label', action);
+  }
+
+  console.log(`Theme switched to: ${theme}`);
 }
